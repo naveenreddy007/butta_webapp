@@ -7,44 +7,35 @@ import {
   AlertTriangle, 
   CheckCircle,
   Package,
-  TrendingUp,
   Eye,
-  Play,
-  ClipboardList
+  Play
 } from 'lucide-react';
-import { KitchenService } from './services/kitchen.service';
-import type { DashboardData, User, Event, CookingLog } from './types';
+
+// Import the kitchen service
+import KitchenService, { type DashboardData } from '../../services/kitchenService';
 
 const KitchenDashboard: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Mock user for demo
+  const mockUser = {
+    id: 'demo-chef-id',
+    email: 'chef.ravi@buttakitchen.com',
+    name: 'Chef Ravi Kumar',
+    role: 'CHEF',
+    phone: '+91 9876543210',
+    isActive: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
 
   // Load dashboard data
   useEffect(() => {
     const loadDashboard = async () => {
       try {
-        // For demo purposes, use the first user from the database
-        // In a real app, this would come from authentication
-        const demoUserId = 'demo-chef-id'; // This would be from auth
-        const demoUserRole = 'CHEF'; // This would be from auth
-        
-        // Mock user for demo
-        const mockUser: User = {
-          id: demoUserId,
-          email: 'chef.ravi@buttakitchen.com',
-          name: 'Chef Ravi Kumar',
-          role: 'CHEF',
-          phone: '+91 9876543210',
-          isActive: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        
-        setUser(mockUser);
-
-        const data = await KitchenService.getDashboardData(demoUserId, demoUserRole);
+        const data = await KitchenService.getDashboardData(mockUser.id, mockUser.role);
         setDashboardData(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load dashboard');
@@ -56,23 +47,17 @@ const KitchenDashboard: React.FC = () => {
     loadDashboard();
   }, []);
 
-  const loadDashboard = async () => {
-    if (!user) return;
-    
-    try {
-      const data = await KitchenService.getDashboardData(user.id, user.role);
-      setDashboardData(data);
-    } catch (err) {
-      console.error('Failed to refresh dashboard:', err);
-    }
-  };
-
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'NOT_STARTED': return 'bg-gray-100 text-gray-800';
       case 'IN_PROGRESS': return 'bg-yellow-100 text-yellow-800';
       case 'COMPLETED': return 'bg-green-100 text-green-800';
       case 'ON_HOLD': return 'bg-red-100 text-red-800';
+      case 'PLANNED': return 'bg-blue-100 text-blue-800';
+      case 'INDENT_CREATED': return 'bg-purple-100 text-purple-800';
+      case 'COOKING_STARTED': return 'bg-orange-100 text-orange-800';
+      case 'COOKING_COMPLETED': return 'bg-green-100 text-green-800';
+      case 'EVENT_COMPLETED': return 'bg-gray-100 text-gray-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
@@ -118,7 +103,7 @@ const KitchenDashboard: React.FC = () => {
             <h3 className="text-lg font-semibold text-red-800 mb-2">Error Loading Dashboard</h3>
             <p className="text-red-600 mb-4">{error}</p>
             <button 
-              onClick={loadDashboard}
+              onClick={() => window.location.reload()}
               className="px-4 py-2 border border-red-300 text-red-700 rounded hover:bg-red-100"
             >
               Try Again
@@ -140,7 +125,7 @@ const KitchenDashboard: React.FC = () => {
             Kitchen Dashboard
           </h1>
           <p className="text-gray-600 mt-1">
-            Welcome back, {user?.name}! Here's what's happening today.
+            Welcome back, {mockUser.name}! Here's what's happening today.
           </p>
         </div>
         <div className="mt-4 sm:mt-0">
@@ -157,7 +142,7 @@ const KitchenDashboard: React.FC = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-gray-200 rounded-lg">
+        <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
           <div className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -169,7 +154,7 @@ const KitchenDashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-lg">
+        <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
           <div className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -181,7 +166,7 @@ const KitchenDashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-lg">
+        <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
           <div className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -193,7 +178,7 @@ const KitchenDashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-lg">
+        <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
           <div className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -207,7 +192,7 @@ const KitchenDashboard: React.FC = () => {
       </div>
 
       {/* Today's Events */}
-      <div className="bg-white border border-gray-200 rounded-lg">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
         <div className="p-6 border-b border-gray-200">
           <h3 className="text-lg font-semibold text-gray-900 flex items-center">
             <Calendar className="w-5 h-5 mr-2" />
@@ -264,21 +249,21 @@ const KitchenDashboard: React.FC = () => {
               ))}
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Active Cooking Tasks */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div className="p-6 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900 flex items-center">
             <ChefHat className="w-5 h-5 mr-2" />
             Active Cooking Tasks
-          </CardTitle>
-          <CardDescription>
+          </h3>
+          <p className="text-sm text-gray-600 mt-1">
             Dishes currently being prepared or ready to start
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+          </p>
+        </div>
+        <div className="p-6">
           {dashboardData.activeCooking.length === 0 ? (
             <div className="text-center py-8">
               <ChefHat className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -295,9 +280,9 @@ const KitchenDashboard: React.FC = () => {
                     </div>
                     <div className="flex items-center space-x-2">
                       <div className={`w-3 h-3 rounded-full ${getPriorityColor(task.priority)}`}></div>
-                      <Badge className={getStatusColor(task.status)} size="sm">
+                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(task.status)}`}>
                         {task.status.replace('_', ' ')}
-                      </Badge>
+                      </span>
                     </div>
                   </div>
                   
@@ -317,34 +302,34 @@ const KitchenDashboard: React.FC = () => {
                     <div className="text-xs text-gray-500">
                       {task.estimatedTime && `Est. ${task.estimatedTime} min`}
                     </div>
-                    <Button
-                      size="sm"
-                      onClick={() => router.push(`/kitchen/cook/${task.eventId}`)}
+                    <button
+                      className="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
+                      onClick={() => alert(`Update cooking task: ${task.dishName}`)}
                     >
                       <Play className="w-4 h-4 mr-1" />
                       Update
-                    </Button>
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Stock Alerts */}
       {dashboardData.lowStockItems.length > 0 && (
-        <Card className="border-yellow-200 bg-yellow-50">
-          <CardHeader>
-            <CardTitle className="flex items-center text-yellow-800">
+        <div className="border border-yellow-200 bg-yellow-50 rounded-lg shadow-sm">
+          <div className="p-6 border-b border-yellow-200">
+            <h3 className="text-lg font-semibold text-yellow-800 flex items-center">
               <Package className="w-5 h-5 mr-2" />
               Stock Alerts
-            </CardTitle>
-            <CardDescription className="text-yellow-700">
+            </h3>
+            <p className="text-sm text-yellow-700 mt-1">
               Items running low in stock
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+            </p>
+          </div>
+          <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {dashboardData.lowStockItems.map((item) => (
                 <div key={item.id} className="bg-white border border-yellow-200 rounded-lg p-4">
@@ -354,78 +339,61 @@ const KitchenDashboard: React.FC = () => {
                     <span className="text-sm text-red-600 font-medium">
                       {item.quantity} {item.unit} left
                     </span>
-                    <Badge variant="outline" className="text-xs">
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-800 border">
                       Min: {item.minStock} {item.unit}
-                    </Badge>
+                    </span>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="mt-4">
-              <Button
-                variant="outline"
-                onClick={() => router.push('/kitchen/stock')}
-              >
-                <Package className="w-4 h-4 mr-2" />
-                Manage Stock
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
 
       {/* Quick Actions */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Quick Actions</CardTitle>
-          <CardDescription>
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div className="p-6 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">Quick Actions</h3>
+          <p className="text-sm text-gray-600 mt-1">
             Common tasks and shortcuts
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+          </p>
+        </div>
+        <div className="p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {user?.role !== 'CHEF' && (
-              <Button
-                variant="outline"
-                className="h-20 flex-col"
-                onClick={() => router.push('/kitchen/indent')}
-              >
-                <ClipboardList className="w-6 h-6 mb-2" />
-                Create Indent
-              </Button>
-            )}
-            
-            <Button
-              variant="outline"
-              className="h-20 flex-col"
-              onClick={() => router.push('/kitchen/cook')}
+            <button
+              className="h-20 flex flex-col items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => alert('Create Indent feature coming soon!')}
             >
-              <ChefHat className="w-6 h-6 mb-2" />
-              Update Cooking
-            </Button>
+              <Package className="w-6 h-6 mb-2 text-gray-600" />
+              <span className="text-sm text-gray-700">Create Indent</span>
+            </button>
             
-            <Button
-              variant="outline"
-              className="h-20 flex-col"
-              onClick={() => router.push('/kitchen/stock')}
+            <button
+              className="h-20 flex flex-col items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => alert('Update Cooking feature coming soon!')}
             >
-              <Package className="w-6 h-6 mb-2" />
-              Check Stock
-            </Button>
+              <ChefHat className="w-6 h-6 mb-2 text-gray-600" />
+              <span className="text-sm text-gray-700">Update Cooking</span>
+            </button>
             
-            {user?.role === 'ADMIN' && (
-              <Button
-                variant="outline"
-                className="h-20 flex-col"
-                onClick={() => router.push('/kitchen/summary')}
-              >
-                <TrendingUp className="w-6 h-6 mb-2" />
-                View Reports
-              </Button>
-            )}
+            <button
+              className="h-20 flex flex-col items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => alert('Check Stock feature coming soon!')}
+            >
+              <Package className="w-6 h-6 mb-2 text-gray-600" />
+              <span className="text-sm text-gray-700">Check Stock</span>
+            </button>
+            
+            <button
+              className="h-20 flex flex-col items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => alert('View Reports feature coming soon!')}
+            >
+              <Eye className="w-6 h-6 mb-2 text-gray-600" />
+              <span className="text-sm text-gray-700">View Reports</span>
+            </button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };

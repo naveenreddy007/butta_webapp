@@ -1,12 +1,8 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "@/pages/LandingPage";
+import KitchenPage from "@/pages/KitchenPage";
 import { ButtaFoodMenu } from "@/components/menu/ButtaFoodMenu";
 import { buttaBusinessInfo } from "@/data/businessInfo";
-
-// Kitchen Module imports
-import KitchenLayout from "../kitchen/layout";
-import KitchenPage from "../kitchen/page";
 
 type PageType = 'home' | 'catering-menu' | 'kitchen';
 
@@ -41,9 +37,10 @@ function App() {
 
   if (currentPage === 'kitchen') {
     return (
-      <KitchenLayout>
-        <KitchenPage />
-      </KitchenLayout>
+      <KitchenPage 
+        businessInfo={businessInfo}
+        onNavigateBack={() => setCurrentPage('home')}
+      />
     );
   }
 
@@ -51,13 +48,19 @@ function App() {
   return (
     <div>
       <LandingPage />
-      {/* Kitchen Dashboard Access Button */}
-      <div className="fixed bottom-4 right-4 z-50">
+      {/* Access Buttons */}
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+        <button
+          onClick={() => setCurrentPage('catering-menu')}
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow-lg transition-colors"
+        >
+          🍽️ Menu Planner
+        </button>
         <button
           onClick={() => setCurrentPage('kitchen')}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-lg transition-colors"
         >
-          🍳 Kitchen Dashboard
+          👨‍🍳 Kitchen Dashboard
         </button>
       </div>
     </div>

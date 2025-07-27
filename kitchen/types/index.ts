@@ -1,105 +1,42 @@
 // Kitchen Module Types
+// Re-export Prisma types for convenience and add custom types
 
-export enum UserRole {
-  CHEF = 'CHEF',
-  KITCHEN_MANAGER = 'KITCHEN_MANAGER',
-  ADMIN = 'ADMIN'
-}
+import { Priority } from '@prisma/client';
 
-export interface KitchenUser {
-  id: string;
-  email: string;
-  name: string;
-  role: UserRole;
-  phone?: string;
-  isActive: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}
+import { CookingStatus } from '@prisma/client';
 
-export interface KitchenEvent {
-  id: string;
-  name: string;
-  date: Date;
-  guestCount: number;
-  eventType: string;
-  status: 'PLANNED' | 'INDENT_CREATED' | 'COOKING_STARTED' | 'COOKING_COMPLETED' | 'EVENT_COMPLETED';
-  menuItems?: any;
-  assignedChef?: string;
-  chef?: KitchenUser;
-}
+import { EventStatus } from '@prisma/client';
 
-export interface Indent {
-  id: string;
-  eventId: string;
-  event?: KitchenEvent;
-  status: 'DRAFT' | 'SUBMITTED' | 'APPROVED' | 'IN_PROGRESS' | 'COMPLETED';
-  totalItems: number;
-  createdBy: string;
-  createdAt: Date;
-  items: IndentItem[];
-}
+import { CookingStatus } from '@prisma/client';
 
-export interface IndentItem {
-  id: string;
-  indentId: string;
-  itemName: string;
-  category: string;
-  quantity: number;
-  unit: string;
-  isInStock: boolean;
-  stockId?: string;
-  stock?: Stock;
-  isReceived: boolean;
-  receivedAt?: Date;
-  notes?: string;
-}
+import { Stock } from '@prisma/client';
 
-export interface Stock {
-  id: string;
-  itemName: string;
-  category: string;
-  quantity: number;
-  unit: string;
-  expiryDate?: Date;
-  batchNumber?: string;
-  supplier?: string;
-  costPerUnit?: number;
-  isActive: boolean;
-  minStock?: number;
-}
+import { CookingLog } from '@prisma/client';
 
-export interface CookingLog {
-  id: string;
-  eventId: string;
-  event?: KitchenEvent;
-  dishName: string;
-  category: string;
-  servings: number;
-  status: 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED' | 'ON_HOLD' | 'CANCELLED';
-  assignedTo: string;
-  chef?: KitchenUser;
-  startedAt?: Date;
-  completedAt?: Date;
-  estimatedTime?: number;
-  notes?: string;
-  priority: 'LOW' | 'NORMAL' | 'HIGH' | 'URGENT';
-}
+import { Indent } from '@prisma/client';
 
-export interface Leftover {
-  id: string;
-  eventId: string;
-  event?: KitchenEvent;
-  itemName: string;
-  quantity: number;
-  unit: string;
-  stockId?: string;
-  stock?: Stock;
-  isReturned: boolean;
-  returnedAt?: Date;
-  estimatedCost?: number;
-  notes?: string;
-}
+import { User } from '@supabase/supabase-js';
+
+export type {
+  User,
+  Event,
+  Indent,
+  IndentItem,
+  Stock,
+  StockUpdate,
+  CookingLog,
+  Leftover,
+  UserRole,
+  EventStatus,
+  IndentStatus,
+  StockUpdateType,
+  CookingStatus,
+  Priority
+} from '../lib/prisma';
+
+// Legacy aliases for backward compatibility
+export type KitchenUser = User;
+export type KitchenEvent = Event;
 
 // API Response types
 export interface ApiResponse<T> {
@@ -137,7 +74,7 @@ export interface CreateIndentForm {
 
 export interface UpdateCookingStatusForm {
   id: string;
-  status: CookingLog['status'];
+  status: CookingStatus;
   notes?: string;
   estimatedTime?: number;
 }
@@ -157,7 +94,7 @@ export interface AddStockForm {
 // Filter and search types
 export interface EventFilter {
   date?: Date;
-  status?: KitchenEvent['status'];
+  status?: EventStatus;
   assignedChef?: string;
 }
 
@@ -168,7 +105,7 @@ export interface StockFilter {
 }
 
 export interface CookingFilter {
-  status?: CookingLog['status'];
-  priority?: CookingLog['priority'];
+  status?: CookingStatus;
+  priority?: Priority;
   assignedTo?: string;
 }
