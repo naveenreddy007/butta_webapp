@@ -1,0 +1,257 @@
+{
+  "categories": [
+    {
+      "id": "starters",
+      "name": "Starters & Appetizers",
+      "description": "Traditional South Indian starters and snacks",
+      "icon": "🥟",
+      "order": 1
+    },
+    {
+      "id": "biryanis",
+      "name": "Biryanis & Rice",
+      "description": "Authentic Hyderabadi biryanis and rice dishes",
+      "icon": "🍚",
+      "order": 2
+    },
+    {
+      "id": "curries",
+      "name": "Curries & Gravies",
+      "description": "Rich South Indian curries and gravies",
+      "icon": "🍛",
+      "order": 3
+    },
+    {
+      "id": "breads",
+      "name": "Breads & Rotis",
+      "description": "Fresh Indian breads and rotis",
+      "icon": "🫓",
+      "order": 4
+    },
+    {
+      "id": "desserts",
+      "name": "Desserts & Sweets",
+      "description": "Traditional South Indian sweets and desserts",
+      "icon": "🍮",
+      "order": 5
+    },
+    {
+      "id": "beverages",
+      "name": "Beverages",
+      "description": "Traditional drinks and refreshments",
+      "icon": "🥤",
+      "order": 6
+    }
+  ],
+  "items": [
+    {
+      "id": "starter-001",
+      "name": "Chicken 65",
+      "description": "Spicy deep-fried chicken pieces marinated in South Indian spices",
+      "price": 450,
+      "category": "starters",
+      "image": "/images/chicken-65.jpg",
+      "dietaryRestrictions": [],
+      "specialNotes": "Serves 4-6 people",
+      "available": true
+    },
+    {
+      "id": "starter-002",
+      "name": "Gobi Manchurian",
+      "description": "Crispy cauliflower florets in Indo-Chinese sauce",
+      "price": 350,
+      "category": "starters",
+      "image": "/images/gobi-manchurian.jpg",
+      "dietaryRestrictions": ["vegetarian"],
+      "specialNotes": "Serves 4-6 people",
+      "available": true
+    },
+    {
+      "id": "starter-003",
+      "name": "Mutton Seekh Kebab",
+      "description": "Spiced minced mutton grilled on skewers, Hyderabadi style",
+      "price": 650,
+      "category": "starters",
+      "image": "/images/seekh-kebab.jpg",
+      "dietaryRestrictions": [],
+      "specialNotes": "6 pieces per order",
+      "available": true
+    },
+    {
+      "id": "starter-004",
+      "name": "Paneer Tikka",
+      "description": "Marinated cottage cheese cubes grilled with bell peppers and onions",
+      "price": 400,
+      "category": "starters",
+      "image": "/images/paneer-tikka.jpg",
+      "dietaryRestrictions": ["vegetarian"],
+      "specialNotes": "8 pieces per order",
+      "available": true
+    },
+    {
+      "id": "starter-005",
+      "name": "Prawn Koliwada",
+      "description": "Crispy fried prawns with curry leaves and green chilies",
+      "price": 550,
+      "category": "starters",
+      "image": "/images/prawn-koliwada.jpg",
+      "dietaryRestrictions": [],
+      "specialNotes": "Serves 4-5 people",
+      "available": true
+    },
+    {
+      "id": "biryani-001",
+      "name": "Hyderabadi Chicken Dum Biryani",
+      "description": "Authentic Hyderabadi biryani with tender chicken and aromatic basmati rice",
+      "price": 280,
+      "category": "biryanis",
+      "image": "/images/chicken-biryani.jpg",
+      "dietaryRestrictions": [],
+      "specialNotes": "Per person, minimum 10 servings",
+      "available": true
+    },
+    {
+      "id": "biryani-002",
+      "name": "Mutton Dum Biryani",
+      "description": "Royal mutton biryani cooked in traditional Hyderabadi style",
+      "price": 350,
+      "category": "biryanis",
+      "image": "/images/mutton-biryani.jpg",
+      "dietaryRestrictions": [],
+      "specialNotes": "Per person, minimum 8 servings",
+      "available": true
+    },
+    {
+      "id": "biryani-003",
+      "name": "Vegetable Biryani",
+      "description": "Fragrant basmati rice with mixed vegetables and aromatic spices",
+      "price": 220,
+      "category": "biryanis",
+      "image": "/images/veg-biryani.jpg",
+      "dietaryRestrictions": ["vegetarian"],
+      "specialNotes": "Per person, minimum 10 servings",
+      "available": true
+    },
+    {
+      "id": "curry-001",
+      "name": "Butter Chicken",
+      "description": "Creamy tomato-based chicken curry with aromatic spices",
+      "price": 320,
+      "category": "curries",
+      "image": "/images/butter-chicken.jpg",
+      "dietaryRestrictions": [],
+      "specialNotes": "Serves 4-6 people",
+      "available": true
+    },
+    {
+      "id": "curry-002",
+      "name": "Dal Tadka",
+      "description": "Yellow lentils tempered with cumin, garlic, and curry leaves",
+      "price": 180,
+      "category": "curries",
+      "image": "/images/dal-tadka.jpg",
+      "dietaryRestrictions": ["vegetarian", "vegan"],
+      "specialNotes": "Serves 6-8 people",
+      "available": true
+    },
+    {
+      "id": "bread-001",
+      "name": "Butter Naan",
+      "description": "Soft leavened bread brushed with butter",
+      "price": 45,
+      "category": "breads",
+      "image": "/images/butter-naan.jpg",
+      "dietaryRestrictions": ["vegetarian"],
+      "specialNotes": "4 pieces per order",
+      "available": true
+    },
+    {
+      "id": "bread-002",
+      "name": "Tandoori Roti",
+      "description": "Whole wheat bread cooked in tandoor",
+      "price": 35,
+      "category": "breads",
+      "image": "/images/tandoori-roti.jpg",
+      "dietaryRestrictions": ["vegetarian", "vegan"],
+      "specialNotes": "4 pieces per order",
+      "available": true
+    },
+    {
+      "id": "dessert-001",
+      "name": "Hyderabadi Haleem",
+      "description": "Traditional sweet haleem with nuts and dry fruits",
+      "price": 150,
+      "category": "desserts",
+      "image": "/images/sweet-haleem.jpg",
+      "dietaryRestrictions": ["vegetarian"],
+      "specialNotes": "Serves 4-6 people",
+      "available": true
+    },
+    {
+      "id": "dessert-002",
+      "name": "Qubani Ka Meetha",
+      "description": "Traditional Hyderabadi apricot dessert with cream",
+      "price": 120,
+      "category": "desserts",
+      "image": "/images/qubani-meetha.jpg",
+      "dietaryRestrictions": ["vegetarian"],
+      "specialNotes": "Serves 6-8 people",
+      "available": true
+    },
+    {
+      "id": "dessert-003",
+      "name": "Double Ka Meetha",
+      "description": "Hyderabadi bread pudding with milk, nuts and cardamom",
+      "price": 140,
+      "category": "desserts",
+      "image": "/images/double-ka-meetha.jpg",
+      "dietaryRestrictions": ["vegetarian"],
+      "specialNotes": "Serves 6-8 people",
+      "available": true
+    },
+    {
+      "id": "bev-001",
+      "name": "Masala Chai",
+      "description": "Traditional Indian spiced tea with milk",
+      "price": 80,
+      "category": "beverages",
+      "image": "/images/masala-chai.jpg",
+      "dietaryRestrictions": ["vegetarian"],
+      "specialNotes": "Serves 8-10 people",
+      "available": true
+    },
+    {
+      "id": "bev-002",
+      "name": "Fresh Lime Water",
+      "description": "Refreshing lime water with mint and black salt",
+      "price": 60,
+      "category": "beverages",
+      "image": "/images/lime-water.jpg",
+      "dietaryRestrictions": ["vegan"],
+      "specialNotes": "Serves 8-10 people",
+      "available": true
+    },
+    {
+      "id": "bev-003",
+      "name": "Lassi",
+      "description": "Traditional yogurt-based drink - sweet or salted",
+      "price": 90,
+      "category": "beverages",
+      "image": "/images/lassi.jpg",
+      "dietaryRestrictions": ["vegetarian"],
+      "specialNotes": "Serves 6-8 people",
+      "available": true
+    },
+    {
+      "id": "bev-004",
+      "name": "Filter Coffee",
+      "description": "South Indian filter coffee with milk and sugar",
+      "price": 70,
+      "category": "beverages",
+      "image": "/images/filter-coffee.jpg",
+      "dietaryRestrictions": ["vegetarian"],
+      "specialNotes": "Serves 8-10 people",
+      "available": true
+    }
+  ]
+}

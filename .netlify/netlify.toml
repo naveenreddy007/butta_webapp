@@ -1,0 +1,28 @@
+plugins = []
+headers = []
+redirects = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "C:\\Users\\bilva_labs\\Development\\Butta_individual no back end app development\\event-menu-planner\\dist"
+publishOrigin = "ui"
+commandOrigin = "ui"
+base = "C:\\Users\\bilva_labs\\Development\\Butta_individual no back end app development\\event-menu-planner"
+command = "pnpm run build"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
