@@ -42,19 +42,17 @@ export function Header({ businessInfo }: HeaderProps) {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="flex items-center space-x-4"
           >
-            {businessInfo.logo && (
-              <img
-                src={businessInfo.logo}
-                alt={businessInfo.name}
-                className="h-10 w-10 rounded-full"
-              />
-            )}
+            <img
+              src="/logo/butta-logo.svg"
+              alt="Butta Convention"
+              className="h-12 w-auto"
+            />
             <div>
-              <h1 className="text-xl md:text-2xl font-bold text-foreground">
+              <h1 className="text-xl md:text-2xl font-bold butta-text-gradient">
                 {businessInfo.name}
               </h1>
               <p className="text-sm text-muted-foreground hidden sm:block">
-                Professional Catering Services
+                Premium Wedding & Event Convention Hall
               </p>
             </div>
           </motion.div>

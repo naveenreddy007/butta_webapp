@@ -15,13 +15,23 @@ module.exports = {
     },
     extend: {
       colors: {
+        // Butta Convention Brand Colors
+        butta: {
+          primary: "#22c55e",
+          secondary: "#16a34a", 
+          accent: "#15803d",
+          light: "#dcfce7",
+          dark: "#14532d",
+          gold: "#f59e0b",
+          red: "#ef4444"
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#22c55e", // Butta primary green
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
